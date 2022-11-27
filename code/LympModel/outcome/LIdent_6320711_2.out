@@ -1,0 +1,345 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2016 The MathWorks, Inc.
+                   R2016b (9.1.0.441655) 64-bit (glnxa64)
+                             September 7, 2016
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+.......................................................................................................................................................................................................................................................................*.................................................................*..................................................................................................................*....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................*......................................................................................................*
+optimization finished, #iter = 1010370
+nu = 0.023030
+obj = -40.176579, rho = -28.192786
+nSV = 45, nBSV = 39
+Total nSV = 45
+163 Left - YTMA79-5_HE_10_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_10_good 
+162 Left - YTMA79-5_HE_10_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_10_poor 
+161 Left - YTMA79-5_HE_11_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_11_good 
+160 Left - YTMA79-5_HE_11_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_11_poor 
+159 Left - YTMA79-5_HE_12_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_12_good 
+158 Left - YTMA79-5_HE_12_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_12_poor 
+157 Left - YTMA79-5_HE_13_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_13_good 
+156 Left - YTMA79-5_HE_14_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_14_good 
+155 Left - YTMA79-5_HE_14_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_14_poor 
+154 Left - YTMA79-5_HE_15_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_15_good 
+153 Left - YTMA79-5_HE_15_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_15_poor 
+152 Left - YTMA79-5_HE_16_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_16_poor 
+151 Left - YTMA79-5_HE_17_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_17_poor 
+150 Left - YTMA79-5_HE_18_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_18_poor 
+149 Left - YTMA79-5_HE_1_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_1_good 
+148 Left - YTMA79-5_HE_1_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_1_poor 
+147 Left - YTMA79-5_HE_20_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_20_poor 
+146 Left - YTMA79-5_HE_21_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_21_poor 
+145 Left - YTMA79-5_HE_22_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_22_poor 
+144 Left - YTMA79-5_HE_23_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_23_poor 
+143 Left - YTMA79-5_HE_24_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_24_poor 
+142 Left - YTMA79-5_HE_25_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_25_poor 
+141 Left - YTMA79-5_HE_26_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_26_poor 
+140 Left - YTMA79-5_HE_27_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_27_poor 
+139 Left - YTMA79-5_HE_28_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_28_poor 
+138 Left - YTMA79-5_HE_29_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_29_poor 
+137 Left - YTMA79-5_HE_2_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_2_good 
+136 Left - YTMA79-5_HE_2_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_2_poor 
+135 Left - YTMA79-5_HE_30_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_30_poor 
+134 Left - YTMA79-5_HE_32_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_32_poor 
+133 Left - YTMA79-5_HE_33_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_33_poor 
+132 Left - YTMA79-5_HE_34_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_34_poor 
+131 Left - YTMA79-5_HE_35_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_35_poor 
+130 Left - YTMA79-5_HE_38_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_38_poor 
+129 Left - YTMA79-5_HE_3_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_3_good 
+128 Left - YTMA79-5_HE_3_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_3_poor 
+127 Left - YTMA79-5_HE_40_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_40_poor 
+126 Left - YTMA79-5_HE_41_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_41_poor 
+125 Left - YTMA79-5_HE_42_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_42_poor 
+124 Left - YTMA79-5_HE_43_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_43_poor 
+123 Left - YTMA79-5_HE_44_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_44_poor 
+122 Left - YTMA79-5_HE_45_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_45_poor 
+121 Left - YTMA79-5_HE_46_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_46_poor 
+120 Left - YTMA79-5_HE_47_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_47_poor 
+119 Left - YTMA79-5_HE_48_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_48_poor 
+118 Left - YTMA79-5_HE_4_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_4_good 
+117 Left - YTMA79-5_HE_4_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_4_poor 
+116 Left - YTMA79-5_HE_5_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_5_good 
+115 Left - YTMA79-5_HE_5_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_5_poor 
+114 Left - YTMA79-5_HE_6_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_6_good 
+113 Left - YTMA79-5_HE_6_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_6_poor 
+112 Left - YTMA79-5_HE_7_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_7_good 
+111 Left - YTMA79-5_HE_7_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_7_poor 
+110 Left - YTMA79-5_HE_8_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_8_good 
+109 Left - YTMA79-5_HE_8_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_8_poor 
+108 Left - YTMA79-5_HE_9_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_9_good 
+107 Left - YTMA79-5_HE_9_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_9_poor 
+106 Left - YTMA79-5_HE_good_10 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_10 
+105 Left - YTMA79-5_HE_good_11 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_11 
+104 Left - YTMA79-5_HE_good_12 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_12 
+103 Left - YTMA79-5_HE_good_13 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_13 
+102 Left - YTMA79-5_HE_good_15 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_15 
+101 Left - YTMA79-5_HE_good_16 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_16 
+100 Left - YTMA79-5_HE_good_17 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_17 
+99 Left - YTMA79-5_HE_good_18 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_18 
+98 Left - YTMA79-5_HE_good_19 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_19 
+97 Left - YTMA79-5_HE_good_1 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_1 
+96 Left - YTMA79-5_HE_good_20 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_20 
+95 Left - YTMA79-5_HE_good_21 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_21 
+94 Left - YTMA79-5_HE_good_23 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_23 
+93 Left - YTMA79-5_HE_good_24 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_24 
+92 Left - YTMA79-5_HE_good_25 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_25 
+91 Left - YTMA79-5_HE_good_26 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_26 
+90 Left - YTMA79-5_HE_good_27 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_27 
+89 Left - YTMA79-5_HE_good_28 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_28 
+88 Left - YTMA79-5_HE_good_32 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_32 
+87 Left - YTMA79-5_HE_good_33 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_33 
+86 Left - YTMA79-5_HE_good_34 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_34 
+85 Left - YTMA79-5_HE_good_4 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_4 
+84 Left - YTMA79-5_HE_good_5 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_5 
+83 Left - YTMA79-5_HE_good_6 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_6 
+82 Left - YTMA79-5_HE_good_7 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_7 
+81 Left - YTMA79-5_HE_good_8 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_8 
+80 Left - YTMA79-5_HE_good_9 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_good_9 
+79 Left - YTMA79-5_HE_poor_10 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_10 
+78 Left - YTMA79-5_HE_poor_11 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_11 
+77 Left - YTMA79-5_HE_poor_12 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_12 
+76 Left - YTMA79-5_HE_poor_13 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_13 
+75 Left - YTMA79-5_HE_poor_14 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_14 
+74 Left - YTMA79-5_HE_poor_15 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_15 
+73 Left - YTMA79-5_HE_poor_16 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_16 
+72 Left - YTMA79-5_HE_poor_17 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_17 
+71 Left - YTMA79-5_HE_poor_18 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_18 
+70 Left - YTMA79-5_HE_poor_2 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_2 
+69 Left - YTMA79-5_HE_poor_3 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_3 
+68 Left - YTMA79-5_HE_poor_4 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_4 
+67 Left - YTMA79-5_HE_poor_5 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_5 
+66 Left - YTMA79-5_HE_poor_7 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_7 
+65 Left - YTMA79-5_HE_poor_9 Tile - 0 Folder Left - In Folder 79 
+Skipping 1 YTMA79-5_HE_poor_9 
+64 Left - add_YTMA79-5_HE_10_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_10_good 
+63 Left - add_YTMA79-5_HE_10_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_10_poor 
+62 Left - add_YTMA79-5_HE_11_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_11_poor 
+61 Left - add_YTMA79-5_HE_12_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_12_good 
+60 Left - add_YTMA79-5_HE_12_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_12_poor 
+59 Left - add_YTMA79-5_HE_13_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_13_good 
+58 Left - add_YTMA79-5_HE_14_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_14_good 
+57 Left - add_YTMA79-5_HE_14_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_14_poor 
+56 Left - add_YTMA79-5_HE_15_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_15_good 
+55 Left - add_YTMA79-5_HE_15_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_15_poor 
+54 Left - add_YTMA79-5_HE_16_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_16_good 
+53 Left - add_YTMA79-5_HE_16_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_16_poor 
+52 Left - add_YTMA79-5_HE_17_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_17_good 
+51 Left - add_YTMA79-5_HE_17_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_17_poor 
+50 Left - add_YTMA79-5_HE_18_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_18_poor 
+49 Left - add_YTMA79-5_HE_19_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_19_poor 
+48 Left - add_YTMA79-5_HE_1_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_1_good 
+47 Left - add_YTMA79-5_HE_20_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_20_good 
+46 Left - add_YTMA79-5_HE_20_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_20_poor 
+45 Left - add_YTMA79-5_HE_21_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_21_good 
+44 Left - add_YTMA79-5_HE_21_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_21_poor 
+43 Left - add_YTMA79-5_HE_22_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_22_good 
+42 Left - add_YTMA79-5_HE_22_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_22_poor 
+41 Left - add_YTMA79-5_HE_23_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_23_poor 
+40 Left - add_YTMA79-5_HE_24_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_24_good 
+39 Left - add_YTMA79-5_HE_24_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_24_poor 
+38 Left - add_YTMA79-5_HE_25_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_25_good 
+37 Left - add_YTMA79-5_HE_26_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_26_good 
+36 Left - add_YTMA79-5_HE_26_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_26_poor 
+35 Left - add_YTMA79-5_HE_27_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_27_good 
+34 Left - add_YTMA79-5_HE_27_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_27_poor 
+33 Left - add_YTMA79-5_HE_28_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_28_good 
+32 Left - add_YTMA79-5_HE_29_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_29_good 
+31 Left - add_YTMA79-5_HE_29_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_29_poor 
+30 Left - add_YTMA79-5_HE_2_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_2_good 
+29 Left - add_YTMA79-5_HE_30_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_30_good 
+28 Left - add_YTMA79-5_HE_30_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_30_poor 
+27 Left - add_YTMA79-5_HE_31_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_31_good 
+26 Left - add_YTMA79-5_HE_31_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_31_poor 
+25 Left - add_YTMA79-5_HE_32_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_32_good 
+24 Left - add_YTMA79-5_HE_33_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_33_poor 
+23 Left - add_YTMA79-5_HE_34_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_34_good 
+22 Left - add_YTMA79-5_HE_34_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_34_poor 
+21 Left - add_YTMA79-5_HE_35_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_35_good 
+20 Left - add_YTMA79-5_HE_35_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_35_poor 
+19 Left - add_YTMA79-5_HE_36_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_36_poor 
+18 Left - add_YTMA79-5_HE_37_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_37_poor 
+17 Left - add_YTMA79-5_HE_38_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_38_poor 
+16 Left - add_YTMA79-5_HE_39_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_39_poor 
+15 Left - add_YTMA79-5_HE_3_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_3_good 
+14 Left - add_YTMA79-5_HE_3_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_3_poor 
+13 Left - add_YTMA79-5_HE_40_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_40_poor 
+12 Left - add_YTMA79-5_HE_41_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_41_poor 
+11 Left - add_YTMA79-5_HE_42_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_42_poor 
+10 Left - add_YTMA79-5_HE_4_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_4_good 
+9 Left - add_YTMA79-5_HE_4_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_4_poor 
+8 Left - add_YTMA79-5_HE_5_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_5_good 
+7 Left - add_YTMA79-5_HE_5_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_5_poor 
+6 Left - add_YTMA79-5_HE_6_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_6_good 
+5 Left - add_YTMA79-5_HE_6_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_6_poor 
+4 Left - add_YTMA79-5_HE_7_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_7_good 
+3 Left - add_YTMA79-5_HE_7_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_7_poor 
+2 Left - add_YTMA79-5_HE_8_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_8_poor 
+1 Left - add_YTMA79-5_HE_9_good Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_9_good 
+0 Left - add_YTMA79-5_HE_9_poor Tile - 0 Folder Left - In Folder 79 
+Skipping 1 add_YTMA79-5_HE_9_poor 
+All done

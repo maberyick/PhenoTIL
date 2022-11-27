@@ -1,0 +1,79 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2016 The MathWorks, Inc.
+                   R2016b (9.1.0.441655) 64-bit (glnxa64)
+                             September 7, 2016
+
+ 
+To get started, type one of these: helpwin, helpdesk, or demo.
+For product information, visit www.mathworks.com.
+ 
+.......................................................................................................................................................................................................................................................................*.................................................................*..................................................................................................................*....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................*......................................................................................................*
+optimization finished, #iter = 1010370
+nu = 0.023030
+obj = -40.176579, rho = -28.192786
+nSV = 45, nBSV = 39
+Total nSV = 45
+61 Left - YTMA140-1_HE_good_10 Tile - 1 Folder Left - In Folder 140 
+60 Left - YTMA140-1_HE_good_11 Tile - 1 Folder Left - In Folder 140 
+59 Left - YTMA140-1_HE_good_13 Tile - 1 Folder Left - In Folder 140 
+58 Left - YTMA140-1_HE_good_14 Tile - 1 Folder Left - In Folder 140 
+57 Left - YTMA140-1_HE_good_15 Tile - 1 Folder Left - In Folder 140 
+56 Left - YTMA140-1_HE_good_16 Tile - 1 Folder Left - In Folder 140 
+55 Left - YTMA140-1_HE_good_18 Tile - 1 Folder Left - In Folder 140 
+54 Left - YTMA140-1_HE_good_19 Tile - 1 Folder Left - In Folder 140 
+53 Left - YTMA140-1_HE_good_20 Tile - 1 Folder Left - In Folder 140 
+52 Left - YTMA140-1_HE_good_22 Tile - 1 Folder Left - In Folder 140 
+51 Left - YTMA140-1_HE_good_23 Tile - 1 Folder Left - In Folder 140 
+50 Left - YTMA140-1_HE_good_24 Tile - 1 Folder Left - In Folder 140 
+49 Left - YTMA140-1_HE_good_25 Tile - 1 Folder Left - In Folder 140 
+48 Left - YTMA140-1_HE_good_26 Tile - 1 Folder Left - In Folder 140 
+47 Left - YTMA140-1_HE_good_27 Tile - 1 Folder Left - In Folder 140 
+46 Left - YTMA140-1_HE_good_29 Tile - 1 Folder Left - In Folder 140 
+45 Left - YTMA140-1_HE_good_30 Tile - 1 Folder Left - In Folder 140 
+44 Left - YTMA140-1_HE_good_31 Tile - 1 Folder Left - In Folder 140 
+43 Left - YTMA140-1_HE_good_32 Tile - 1 Folder Left - In Folder 140 
+42 Left - YTMA140-1_HE_good_33 Tile - 1 Folder Left - In Folder 140 
+41 Left - YTMA140-1_HE_good_34 Tile - 1 Folder Left - In Folder 140 
+40 Left - YTMA140-1_HE_good_35 Tile - 1 Folder Left - In Folder 140 
+39 Left - YTMA140-1_HE_good_37 Tile - 1 Folder Left - In Folder 140 
+38 Left - YTMA140-1_HE_good_38 Tile - 1 Folder Left - In Folder 140 
+37 Left - YTMA140-1_HE_good_39 Tile - 1 Folder Left - In Folder 140 
+36 Left - YTMA140-1_HE_good_40 Tile - 1 Folder Left - In Folder 140 
+35 Left - YTMA140-1_HE_good_41 Tile - 1 Folder Left - In Folder 140 
+34 Left - YTMA140-1_HE_good_42 Tile - 1 Folder Left - In Folder 140 
+33 Left - YTMA140-1_HE_good_43 Tile - 1 Folder Left - In Folder 140 
+32 Left - YTMA140-1_HE_good_5 Tile - 1 Folder Left - In Folder 140 
+31 Left - YTMA140-1_HE_good_6 Tile - 1 Folder Left - In Folder 140 
+30 Left - YTMA140-1_HE_good_8 Tile - 1 Folder Left - In Folder 140 
+29 Left - YTMA140-1_HE_poor_11 Tile - 1 Folder Left - In Folder 140 
+28 Left - YTMA140-1_HE_poor_13 Tile - 1 Folder Left - In Folder 140 
+27 Left - YTMA140-1_HE_poor_15 Tile - 1 Folder Left - In Folder 140 
+26 Left - YTMA140-1_HE_poor_16 Tile - 1 Folder Left - In Folder 140 
+25 Left - YTMA140-1_HE_poor_17 Tile - 1 Folder Left - In Folder 140 
+24 Left - YTMA140-1_HE_poor_20 Tile - 1 Folder Left - In Folder 140 
+23 Left - YTMA140-1_HE_poor_21 Tile - 1 Folder Left - In Folder 140 
+22 Left - YTMA140-1_HE_poor_22 Tile - 1 Folder Left - In Folder 140 
+21 Left - YTMA140-1_HE_poor_23 Tile - 1 Folder Left - In Folder 140 
+20 Left - YTMA140-1_HE_poor_24 Tile - 1 Folder Left - In Folder 140 
+19 Left - YTMA140-1_HE_poor_25 Tile - 1 Folder Left - In Folder 140 
+18 Left - YTMA140-1_HE_poor_26 Tile - 1 Folder Left - In Folder 140 
+17 Left - YTMA140-1_HE_poor_27 Tile - 1 Folder Left - In Folder 140 
+16 Left - YTMA140-1_HE_poor_28 Tile - 1 Folder Left - In Folder 140 
+15 Left - YTMA140-1_HE_poor_29 Tile - 1 Folder Left - In Folder 140 
+14 Left - YTMA140-1_HE_poor_30 Tile - 1 Folder Left - In Folder 140 
+13 Left - YTMA140-1_HE_poor_31 Tile - 1 Folder Left - In Folder 140 
+12 Left - YTMA140-1_HE_poor_32 Tile - 1 Folder Left - In Folder 140 
+11 Left - YTMA140-1_HE_poor_33 Tile - 1 Folder Left - In Folder 140 
+10 Left - YTMA140-1_HE_poor_34 Tile - 1 Folder Left - In Folder 140 
+9 Left - YTMA140-1_HE_poor_35 Tile - 1 Folder Left - In Folder 140 
+8 Left - YTMA140-1_HE_poor_36 Tile - 1 Folder Left - In Folder 140 
+7 Left - YTMA140-1_HE_poor_37 Tile - 1 Folder Left - In Folder 140 
+6 Left - YTMA140-1_HE_poor_39 Tile - 1 Folder Left - In Folder 140 
+5 Left - YTMA140-1_HE_poor_40 Tile - 1 Folder Left - In Folder 140 
+4 Left - YTMA140-1_HE_poor_5 Tile - 1 Folder Left - In Folder 140 
+3 Left - YTMA140-1_HE_poor_6 Tile - 1 Folder Left - In Folder 140 
+2 Left - YTMA140-1_HE_poor_7 Tile - 1 Folder Left - In Folder 140 
+1 Left - YTMA140-1_HE_poor_8 Tile - 1 Folder Left - In Folder 140 
+0 Left - YTMA140-1_HE_poor_9 Tile - 1 Folder Left - In Folder 140 
+All done
