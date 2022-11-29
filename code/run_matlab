@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-set -ex
-
-# This is the master script for the capsule. When you click "Reproducible Run", the code in this file will execute.
-
-# TO RUN SET ENVIRONMENT TO: MATLAB (2021b-ubuntu20.04)
-
-# Set of PhenoTIL features that are extracted from a single lymphocyte cell on the H&E-stained patch. It outputs 288 feature vectors per cell.
-matlab -nodisplay -r "addpath(genpath('.')); getAllFeatures_V2 '/data/' '/results/'"
