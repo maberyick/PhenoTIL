@@ -1,4 +1,4 @@
-# PhenoTIL_V1
+# PhenoTIL (v1)
 Currently in development. Phenotypic features from Tumor-Infiltrating Lymphocytes (TIL) on H&amp;E images.
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
