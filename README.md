@@ -1,5 +1,5 @@
 # PhenoTIL (v1)
-Currently in development. Phenotypic features from Tumor-Infiltrating Lymphocytes (TIL) on H&amp;E images.
+
 <a name="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
@@ -70,6 +70,8 @@ Currently in development. Phenotypic features from Tumor-Infiltrating Lymphocyte
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+Currently in development. Phenotypic features from Tumor-Infiltrating Lymphocytes (TIL) on H&amp;E images.
 
 There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
