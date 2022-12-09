@@ -242,7 +242,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ### MATLAB output examples
 
-![Alt text](output/path/matlab/test_result.png?raw=true "Output example of MATLAB code")
+![Alt text](./output/path/matlab/test_result.png?raw=true "Output example of MATLAB code")
 
 
 ### R output examples
