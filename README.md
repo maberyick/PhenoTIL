@@ -227,6 +227,11 @@ GISTools`
    install.packages("GISTools")
    ```
 
+### Running visualizations (R)
+
+For running the visualization scripts on R, run the script:
+`run_phenoTIL_R_FigurePlot.R`
+
 The resulting images will be plotted in the R environment. Some examples are saved at `/output/R/Rplots.pdf`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
