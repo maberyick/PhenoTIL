@@ -242,7 +242,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ### MATLAB output examples
 
-![Output example of MATLAB code](https://github.com/maberyick/PhenoTIL_V1/output/matlab/test_result.png?raw=true "Output example of MATLAB code"))
+![Alt text]((https://github.com/maberyick/PhenoTIL_V1/output/matlab/test_result.png?raw=true)
 
 
 ### R output examples
