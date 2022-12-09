@@ -243,8 +243,8 @@ Some screenshots and image generated can be observe below.
 The original H&E image sample, the figure plot for the identified cells (Green are the lymphocyte cells, Red the non-lymphocyte cells)
 
 <p float="left">
-  <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/data/test_set/test.png" width=40% height=40% />
-  <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/output/matlab/identified_test.png" width=80% height=80% /> 
+  <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/data/test_set/test.png" width=30% height=30% />
+  <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/output/matlab/identified_test.png" width=70% height=70% /> 
 </p>
 
 ### R output examples
