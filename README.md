@@ -241,6 +241,7 @@ Some screenshots and image generated can be observe below.
 ### MATLAB output examples
 
 The original H&E image sample
+
 <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/data/test_set/test.png" width=20% height=20%>
 
 ![Alt text](https://github.com/maberyick/PhenoTIL_V1/blob/main/data/test_set/test.png width=100)
