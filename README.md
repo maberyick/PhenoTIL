@@ -71,22 +71,15 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Currently in development. Phenotypic features from Tumor-Infiltrating Lymphocytes (TIL) on H&amp;E images.
+PhenoTIL in general is the phenotypic features from Tumor-Infiltrating Lymphocytes (TIL) on H&E images. It is a multimodal pipline that ultimetly builds a immune-related biomarker that can be associated with overall survival of lung cancer patients.
+It consists of different modalities from MATLAB, Python to R. Each offering an specific solution. This work is part of a upcoming paper.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Main aspects of PhenoTIL:
+* Nuclei segmentation with lymphocyte identification and feature extraction of immune cell morphological aspects cell by cell.
+* Feature analysis of immune cells with unsupervized clustering.
+* High quality visualization of statistical analysis of the signature.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
 
@@ -230,8 +223,11 @@ GISTools`
 ### Running visualizations (R)
 
 For running the visualization scripts on R, run the script:
-`run_phenoTIL_R_FigurePlot.R`
 
+   ```R
+   run_phenoTIL_R_FigurePlot.R
+   ```
+   
 The resulting images will be plotted in the R environment. Some examples are saved at `/output/R/Rplots.pdf`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
