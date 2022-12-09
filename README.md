@@ -111,9 +111,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 PhenoTIL consists of three segments. 
 
 First, the preprocessing of the H&E image with nuclei segmentation and identification of lymphocyte cells. This also includes the feature extraction of the identified cells (done in **MATLAB**).
-
 Second, the unsupervised clusterization of the extracted features (done in **Python**).
-
 Third the visualization of some statistical scripts implemented in the paper (done in **R**).
 
 ### Prerequisites
