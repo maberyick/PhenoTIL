@@ -1,6 +1,7 @@
 # import libraries
 # Run on the python 2.7
-# conda create --name py2 python=2.7
+# conda create --name phenotil_py2 python=2.7
+# conda activate phenotil_py2
 # install old version of skleran and numpy
 # pip install numpy==1.16.4
 # pip install "scikit-learn==0.19.0"
@@ -8,6 +9,9 @@
 # pip install pandas
 # pip install matplotlib
 # pip install sio
+# pip install scipy
+# pip install joblib
+# pip install hdf5storage
 from __future__ import division
 import sklearn.externals.joblib as extjoblib
 import joblib
@@ -20,6 +24,7 @@ import ntpath
 import collections
 import os
 import re
+import hdf5storage
 # import pandas as pd
 # import matplotlib.pyplot as plt
 #import seaborn as sns
@@ -30,12 +35,18 @@ scaler = extjoblib.load('./data/phenoTIL/scale/clusterLCS_Scale.pickle')
 # Load the trained module
 dpgmm = joblib.load('./data/phenoTIL/dpgmm/clusterLCS_8_v2.pickle')
 # Path for saving the clustered images
-pathtest_save = './output/test_cls.mat'
-pathtest_set = './data/features_mat/test_set/test.mat'
+pathtest_save = './output/python/test_cls.mat'
+# This path has a pre-process feature saved as test.mat
+#pathtest_set = './data/features_mat/test_set/test.mat'
+# Use this path if the script run_phenoTIL_matlabr2020b_featureExtraction.m was run
+pathtest_set = './output/matlab/test.mat'
 # Load the set
 test_files = glob.glob(pathtest_set)
 # generate the clusters
-mat_T = sio.loadmat(pathtest_set)
+# If the test.mat file was saved using older MATLAB (-v5) run this line
+#mat_T = sio.loadmat(pathtest_set)
+# Run this line for test.mat files saved as newer MATLAB (-v7 to -v7.3)
+mat_T = hdf5storage.loadmat(pathtest_set)
 cent_T = mat_T['centroids_L']
 L_T = mat_T['localFeatures_L']
 C_T = mat_T['contextFeatures_L']

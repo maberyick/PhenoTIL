@@ -17,7 +17,7 @@ img = imread('./data/test_set/test.png');
 % we run the phenoTIL script
 % save the sample features as a mat file
 input_path = './data/test_set/'; % all the H&E patches as png
-output_path = './output/phenoTIL/';
+output_path = './output/matlab/';
 getAllFeatures_V2(input_path,output_path);
 %%
 % To get the mask we can simply run it as
@@ -41,10 +41,11 @@ rndnonLymp = round(nonLympCentroids);
 bwLymp = bwselect(nuclei,rndLymp(:,1),rndLymp(:,2));
 bwnonLymp = bwselect(nuclei,rndnonLymp(:,1),rndnonLymp(:,2));
 % save the lymphocyte mask
-imwrite(bwLymp,'./output/test_lymp.png')
-imwrite(bwnonLymp,'./output/test_nonlymp.png')
+imwrite(bwLymp,'./output/matlab/test_lymp.png')
+imwrite(bwnonLymp,'./output/matlab/test_nonlymp.png')
 
 % Plot and save how the example looks like
+FigH = figure('Position', get(0, 'Screensize'));
 subplot(2,2,1);
 imshow(img)
 title('H&E Sample')
@@ -58,3 +59,7 @@ scatter(lympCentroids(:,1),lympCentroids(:,2),'*g');
 scatter(nonLympCentroids(:,1),nonLympCentroids(:,2),'*r');
 hold off
 title('Lymphocyte identification (green=lymphocyte)')
+F = getframe(FigH);
+imwrite(F.cdata, './output/matlab/test_result.png', 'png')
+
+% Extract the phenoTIL features
