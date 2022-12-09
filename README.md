@@ -108,9 +108,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
+PhenoTIL consists of three segments. First, the preprocessing of the H&E image with nuclei segmentation and identification of lymphocyte cells. 
+This also includes the feature extraction of the identified cells (done in **MATLAB**). Second, the unsupervised clusterization of the extracted features (done in **Python**). Third the visualization of some statistical scripts implemented in the paper (done in **R**). 
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
