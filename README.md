@@ -129,11 +129,11 @@ To run the script we follow the next steps:
    run_phenoTIL_matlabr2020b_featureExtraction
    ```
 
-The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
+3. The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
 
 ### Prerequisites for Python
 
-As the codes are were written in Python 2.7 at the time, to reproduce the feature extraction, we create a coda `environment`:
+1. As the codes are were written in Python 2.7 at the time, to reproduce the feature extraction, we create a coda `environment`:
 
    ```sh
    conda create --name phenotil_py2 python=2.7
@@ -142,7 +142,8 @@ As the codes are were written in Python 2.7 at the time, to reproduce the featur
    ```sh
    conda activate phenotil_py2
    ```
-We then install the old version of the sklearn, numpy and others:
+
+2. We then install the old version of the sklearn, numpy and others:
 
    ```sh
    pip install numpy==1.16.4
@@ -158,17 +159,23 @@ We then install the old version of the sklearn, numpy and others:
 
 ### Running unsupervized clustering (Python)
 
-To run the Python script we simply run the code once the conda environment is activated:
+1. To run the Python script we simply run the code once the conda environment is activated:
 
    ```sh
    python run_phenoTIL_python27_featureClustering.py
    ```
 
-The cluster of the cells file is saved as `phenoTIL_V1/output/python/test_cls.mat`
+2. The cluster of the cells file is saved as `phenoTIL_V1/output/python/test_cls.mat`
 
 ### Prerequisites for R
 
+For the depndencies make sure that the following libraries are installed with R.
+1. For hrbrthemes, please follow installs from:  https://github.com/hrbrmstr/hrbrthemes
 
+   ```R
+   remotes::install_github("hrbrmstr/hrbrthemes")
+   ```
+2. The needed libraries are below:
 `plyr
 R.matlab
 survcomp
@@ -212,27 +219,17 @@ pheatmap
 EDASeq
 GISTools`
 
-### Installation
+3. Also for some libraries, they can be installed as:
+   ```R
+   devtools::install_github("mattflor/chorddiag")
+   ```
+   ```R
+   install.packages("GISTools")
+   ```
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+The resulting images will be plotted in the R environment. Some examples are saved at `/output/R/Rplots.pdf`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -243,6 +240,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### MATLAB output examples
+
+![Alt text](output/path/matlab/test_result.png?raw=true "Output example of MATLAB code")
+
+
+### R output examples
 
 
 <!-- ROADMAP -->
