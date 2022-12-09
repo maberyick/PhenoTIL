@@ -124,7 +124,7 @@ The script was run using MATLAB2022a (Academic Use).
 To run the script we follow the next steps:
 
 1. We open MATLAB and locate the directory in the same as the phenoTIL main folder.
-2. We run the script: 
+2. We run the script on MATLAB as: 
    ```matlab
    run_phenoTIL_matlabr2020b_featureExtraction
    ```
@@ -133,11 +133,12 @@ The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` inc
 
 ### Prerequisites for Python
 
-As the codes are were written in Python 2.7 at the time, to reproduce the feature extraction, we perform:
+As the codes are were written in Python 2.7 at the time, to reproduce the feature extraction, we create a coda `environment`:
 
    ```sh
    conda create --name phenotil_py2 python=2.7
    ```
+   We then activate the environment
    ```sh
    conda activate phenotil_py2
    ```
@@ -157,23 +158,18 @@ We then install the old version of the sklearn, numpy and others:
 
 ### Running unsupervized clustering (Python)
 
-We then run the code as:
+To run the Python script we simply run the code once the conda environment is activated:
 
    ```sh
    python run_phenoTIL_python27_featureClustering.py
    ```
 
+The cluster of the cells file is saved as `phenoTIL_V1/output/python/test_cls.mat`
 
-The cluster of the cells file is saved at phenoTIL_V1/output/python/test_cls.mat
+### Prerequisites for R
 
 
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-plyr
+`plyr
 R.matlab
 survcomp
 Gmisc
@@ -201,7 +197,7 @@ RColorBrewer
 hexbin
 viridis
 patchwork
-# hrbrthemes
+hrbrthemes
 circlize
 chorddiag
 TCGAWorkflowData
@@ -214,7 +210,7 @@ GetoptLong
 caret
 pheatmap
 EDASeq
-GISTools
+GISTools`
 
 ### Installation
 

@@ -34,7 +34,7 @@ python run_phenoTIL_python27_featureClustering.py
 The cluster of the cells file is saved at phenoTIL_V1/output/python/test_cls.mat
 
 ..................................................................................................................
-		# PYTHON #
+		# R #
 ..................................................................................................................
 For the depndencies make sure that the following libraries are installed with R.
 Also for some libraries, they can be installed as:
