@@ -244,7 +244,7 @@ The original H&E image sample, the figure plot for the identified cells (Green a
 
 <p float="left">
   <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/data/test_set/test.png" width=40% height=40% />
-  <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/output/matlab/identified_test.png" width=80% height=80 /> 
+  <img src="https://github.com/maberyick/PhenoTIL_V1/blob/main/output/matlab/identified_test.png" width=80% height=80% /> 
 </p>
 
 ### R output examples
