@@ -114,7 +114,59 @@ PhenoTIL consists of three segments.
 2. The unsupervised clusterization of the extracted features (done in **Python**).
 3. The visualization of some statistical scripts implemented in the paper (done in **R**).
 
-### Prerequisites
+### Prerequisites for MATLAB
+
+MATLAB dependencies are already provided in the `code` folder. Other dependencies are related to the toolbox offered with MATLAB.
+The script was run using MATLAB2022a (Academic Use).
+
+### Running feature extraction (MATLAB)
+
+To run the script we follow the next steps:
+
+1. We open MATLAB and locate the directory in the same as the phenoTIL main folder.
+2. We run the script: 
+   ```matlab
+   run_phenoTIL_matlabr2020b_featureExtraction
+   ```
+
+The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
+
+### Prerequisites for Python
+
+As the codes are were written in Python 2.7 at the time, to reproduce the feature extraction, we perform:
+
+   ```sh
+   conda create --name phenotil_py2 python=2.7
+   ```
+   ```sh
+   conda activate phenotil_py2
+   ```
+We then install the old version of the sklearn, numpy and others:
+
+   ```sh
+   pip install numpy==1.16.4
+   pip install "scikit-learn==0.19.0"
+   pip install pillow
+   pip install pandas
+   pip install matplotlib
+   pip install sio
+   pip install scipy
+   pip install joblib
+   pip install hdf5storage
+   ```
+
+### Running unsupervized clustering (Python)
+
+We then run the code as:
+
+   ```sh
+   python run_phenoTIL_python27_featureClustering.py
+   ```
+
+
+The cluster of the cells file is saved at phenoTIL_V1/output/python/test_cls.mat
+
+
 
 This is an example of how to list things you need to use the software and how to install them.
 * npm
