@@ -118,6 +118,48 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   npm install npm@latest -g
   ```
+plyr
+R.matlab
+survcomp
+Gmisc
+skimr
+Hmisc
+boot 
+table1
+survival
+survminer
+gsubfn
+ggplot2
+ggnetwork
+ggforce
+waffle
+ggpubr
+uwot
+gridExtra
+grid
+cowplot
+lattice
+ggsci
+tidyverse
+colourlovers
+RColorBrewer
+hexbin
+viridis
+patchwork
+# hrbrthemes
+circlize
+chorddiag
+TCGAWorkflowData
+DT
+TCGAbiolinks
+ggcorrplot
+ComplexHeatmap
+colorspace
+GetoptLong
+caret
+pheatmap
+EDASeq
+GISTools
 
 ### Installation
 
