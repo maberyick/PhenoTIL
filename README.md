@@ -54,7 +54,7 @@ PhenoTIL consists of three segments.
 MATLAB dependencies are already provided in the `code` folder. Other dependencies are related to the toolbox offered with MATLAB.
 The script was run using MATLAB2022a (Academic Use).
 
-### Running feature extraction (MATLAB)
+### Running nuclei segmentation #2 feature extraction (MATLAB)
 
 To run the script we follow the next steps:
 
