@@ -52,6 +52,8 @@ PhenoTIL consists of three segments.
 HistoQC is an open-source quality control tool for digital pathology slides, it can be run using Python. The project can be found here [HistoQC](https://github.com/choosehappy/HistoQC)
 Once the WSI images are processed, different steps can be performed.
 
+A sample WSI can be found in this link [wsi sample](https://drive.google.com/drive/folders/1JZLXz0dFQIWQUSAJpu3kim2IbY3O0AvH?usp=share_link)
+
 ### Prerequisites for running tile generation - (MATLAB)
 To extract small tiles samples from WSI we perform `tile generation`. MATLAB dependencies are already provided in the `code/tilegen/` folder. Other dependencies are related to the toolbox offered with MATLAB.
 Further dependency is the openslide libraries that are needed to process WSI images. They are provided in the folder but if issue are found (e.g. running on Linux), the library can be found with the below links. The script was run using MATLAB2022a (Academic Use).
@@ -76,6 +78,8 @@ The script `run_phenoTIL_WSI_tileGeneration` was done using the **Live Script** 
    ```
 
 ### Prerequisites for running nuclei Segmentation #1 - (Python, Deep Learning)
+
+The pre-trained model can be found in this link [model folder](https://drive.google.com/drive/folders/1JZLXz0dFQIWQUSAJpu3kim2IbY3O0AvH?usp=share_link). It can be added to the folder `PhenoTIL_V1/model`.
 
 1. As the codes are were written in Python 3.8 at the time, to reproduce the nuclei segmentation, we create a conda `environment`:
    ```sh
