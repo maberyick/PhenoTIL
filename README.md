@@ -122,7 +122,7 @@ To run the script we follow the next steps:
    run_phenoTIL_matlabr2020b_featureExtraction
    ```
 3. (Optional) If the nuclei segmentation #1 mask is already saved. We can combine the nuclei segmentation #1 with nuclei segmentation #2. It offers more options to identify cells on a image sample.
-   We run a set of line of codes:
+   We run a set of line of codes (A script can be found at `/code/libs/fusion_masks.m`:
    ```matlab
    BW_ml = imread('./output/matlab/test_mask_ml.png'); % Load the mask from nuclei segmentation #1 (ML)
    BW = imread('./output/python/test_mask_dl.png'); % Load the mask from nuclei segmentation #2 (DL)

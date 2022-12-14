@@ -8,10 +8,3 @@ BW = bwpropfilt(BW,'Area',[0 200]);
 BW_comb = BW + logical(BW_ml);
 imwrite(BW_comb,'/home/maberyick/CCIPD_Research/Github/PhenoTIL_V1/output/python/test_mask_combined.png');
 figure, imshow(BW)
-
-
-
-
-imshowpair(BW,BW2,'montage')
-
-
