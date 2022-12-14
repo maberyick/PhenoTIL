@@ -116,7 +116,12 @@ The script was run using MATLAB2022a (Academic Use).
 To run the script we follow the next steps:
 
 1. We open MATLAB and locate the directory in the same as the phenoTIL main folder.
-2. We can (optional) combine the nuclei segmentation #1 with nuclei segmentation #2. It offers more options to identify cells on a image sample.
+2. We run the script on MATLAB as shown below. It will run the script using the nuclei segmentation #1 mask:
+    Script
+```matlab
+   run_phenoTIL_matlabr2020b_featureExtraction
+   ```
+3. (Optional) If the nuclei segmentation #1 mask is already saved. We can combine the nuclei segmentation #1 with nuclei segmentation #2. It offers more options to identify cells on a image sample.
    We run a set of line of codes:
    ```matlab
    BW_ml = imread('./output/matlab/test_mask_ml.png'); % Load the mask from nuclei segmentation #1 (ML)
@@ -127,12 +132,7 @@ To run the script we follow the next steps:
    BW_comb = BW + logical(BW_ml); % Combine both masks
    imwrite(BW_comb,'./output/python/test_mask_combined.png'); % Save the combined binary mask
    ```
-3. We run the script on MATLAB as shown below. It will run the script using the nuclei segmentation #1 mask:
-    Script
-```matlab
-   run_phenoTIL_matlabr2020b_featureExtraction
-   ```
-3. The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
+4. The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
 
 ### Prerequisites for Python (Machine Learning)
 
