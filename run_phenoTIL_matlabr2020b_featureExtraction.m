@@ -21,9 +21,11 @@ output_path = './output/matlab/';
 getAllFeatures_V2(input_path,output_path);
 %%
 % To get the mask we can simply run it as
+% If other mask will be used, specify here instead
+% nuclei = imread('/path/to/mask.png');
 nuclei = getWatershedMask(img,1,4,12);
 % Save the mask
-imwrite(nuclei,'./output/test.png')
+imwrite(nuclei,'./output/matlab/test_mask_ml.png')
 % To get the lymphocytes from the nuclei mask and image we run it as
 % load the trained lymphocyte model
 lympModel = load('lymp_svm_matlab_wsi.mat');

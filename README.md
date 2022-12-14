@@ -38,38 +38,105 @@ List of major frameworks/libraries used to build the project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
 PhenoTIL consists of three segments. 
 
-1. The preprocessing of the H&E image with nuclei segmentation and identification of lymphocyte cells. This also includes the feature extraction of the identified cells (done in **MATLAB**).
-2. The unsupervised clusterization of the extracted features (done in **Python**).
-3. The visualization of some statistical scripts implemented in the paper (done in **R**).
+1. The initial step is the preprocessing of whole-slide images (WSI), then tile generation using **MATLAB** and first nuclei segmentation #1 using deep learning (DL) **U-Net**.
+2. The preprocessing of the H&E image with nuclei segmentation using machine learning (ML) and identification of lymphocyte cells. This also includes the feature extraction of the identified cells (done in **MATLAB**).
+3. The unsupervised clusterization of the extracted features (done in **Python**).
+4. The visualization of some statistical scripts implemented in the paper (done in **R**).
+
+### HistoQC - (Python)
+HistoQC is an open-source quality control tool for digital pathology slides, it can be run using Python. The project can be found here [HistoQC](https://github.com/choosehappy/HistoQC)
+Once the WSI images are processed, different steps can be performed.
+
+### Prerequisites for running tile generation - (MATLAB)
+To extract small tiles samples from WSI we perform `tile generation`. MATLAB dependencies are already provided in the `code/tilegen/` folder. Other dependencies are related to the toolbox offered with MATLAB.
+Further dependency is the openslide libraries that are needed to process WSI images. They are provided in the folder but if issue are found (e.g. running on Linux), the library can be found with the below links. The script was run using MATLAB2022a (Academic Use).
+
+1. [Openslide-matlab](https://github.com/fordanic/openslide-matlab)
+2. [Openslide](https://openslide.org/download/)
+
+### Running tile generation - (MATLAB)
+The script `run_phenoTIL_WSI_tileGeneration` was done using the **Live Script** Option from MATLAB. It has few steps to perform tile generation and also create a binary mask from annotations done for isolating a tissue area (e.g. tumor area).
+
+1. To run the tile generation, the lines of code can be found on the main script as:
+    We add the dependencies
+   ```matlab
+   addpath(genpath('./code/tilegen/'))
+   addpath(genpath('./code/tilegen/openslide-3.4.1'))
+   addpath(genpath('./code/tilegen/libs_openslide'))
+   addpath(genpath('./code/tilegen/openslide-matlab'))
+   ```
+    Then we simply run the script as `mainTileGenerationV2 input_path_image input_path_annotation output_path_tiles image_format`
+   ```matlab
+   mainTileGenerationV2 './data/test_set/wsi/' './data/test_set/wsi/' './output/matlab/tiles/' 'tiff'
+   ```
+
+### Prerequisites for running nuclei Segmentation #1 - (Python, Deep Learning)
+
+1. As the codes are were written in Python 3.8 at the time, to reproduce the nuclei segmentation, we create a conda `environment`:
+   ```sh
+   conda create -n nucleipy python=3.8
+   ```
+   We then activate the environment
+   ```sh
+   activate nucleipy
+   ```
+2. We then install the old version of the opencv-python, Pillow and others:
+   ```sh
+   pip install -r requirements_nucleiSeg.txt
+   pip install --upgrade pip
+   pip install --upgrade tensorflow
+   pip install opencv-python
+   pip install Pillow
+   ```
+### Running nuclei segmentation #1 (Python)
+
+1. We run the script, indicating the input as the folder containing the image (png format) and output the folder to save the mask. `python run_phenoTIL_python38_nucleiSegmentationDL.py input_path output_path`
+   Activate the environment
+      ```sh
+   activate nucleipy
+   ```
+   Run the script
+   ```sh
+   python run_phenoTIL_python38_nucleiSegmentationDL.py '/data/test_set/' '/output/python/'
+   ```
+4. The results can be seen on the folder directory `phenoTIL_V1/output/python/` including the nuclei segmentation #1 `test_mask.png`
 
 ### Prerequisites for MATLAB
 
 MATLAB dependencies are already provided in the `code` folder. Other dependencies are related to the toolbox offered with MATLAB.
 The script was run using MATLAB2022a (Academic Use).
 
-### Running nuclei segmentation #2 feature extraction (MATLAB)
+### Running nuclei segmentation #2 and feature extraction (MATLAB)
 
 To run the script we follow the next steps:
 
 1. We open MATLAB and locate the directory in the same as the phenoTIL main folder.
-2. We run the script on MATLAB as: 
+2. We can (optional) combine the nuclei segmentation #1 with nuclei segmentation #2. It offers more options to identify cells on a image sample.
+   We run a set of line of codes:
    ```matlab
+   BW_ml = imread('./output/matlab/test_mask_ml.png'); % Load the mask from nuclei segmentation #1 (ML)
+   BW = imread('./output/python/test_mask_dl.png'); % Load the mask from nuclei segmentation #2 (DL)
+   BW = imbinarize(BW,'adaptive'); % Make it binary
+   BW = bwareaopen(BW, 30); % Remove small objects detected
+   BW = bwpropfilt(BW,'Area',[0 200]); % Remove bigger objects (e.g. grouped cells)
+   BW_comb = BW + logical(BW_ml); % Combine both masks
+   imwrite(BW_comb,'./output/python/test_mask_combined.png'); % Save the combined binary mask
+   ```
+3. We run the script on MATLAB as shown below. It will run the script using the nuclei segmentation #1 mask:
+    Script
+```matlab
    run_phenoTIL_matlabr2020b_featureExtraction
    ```
-
 3. The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
 
-### Prerequisites for Python
+### Prerequisites for Python (Machine Learning)
 
-1. As the codes are were written in Python 2.7 at the time, to reproduce the feature extraction, we create a coda `environment`:
-
+1. As the codes were written in Python 2.7 at the time, to reproduce the feature extraction, we create a conda `environment`:
    ```sh
    conda create --name phenotil_py2 python=2.7
    ```
@@ -77,7 +144,6 @@ To run the script we follow the next steps:
    ```sh
    conda activate phenotil_py2
    ```
-
 2. We then install the old version of the sklearn, numpy and others:
 
    ```sh

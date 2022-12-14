@@ -1,0 +1,742 @@
+#!/usr/bin/env python
+#
+# OpenSlide, a library for reading whole slide image files
+#
+# Copyright (c) 2012-2015 Carnegie Mellon University
+# All rights reserved.
+#
+# OpenSlide is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation, version 2.1.
+#
+# OpenSlide is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with OpenSlide. If not, see
+# <http://www.gnu.org/licenses/>.
+#
+
+from ConfigParser import RawConfigParser
+from contextlib import closing, contextmanager
+import filecmp
+import fnmatch
+from hashlib import sha256
+import inspect
+import os
+import re
+import requests
+import shlex
+from shutil import copytree, rmtree
+import socket
+import struct
+import subprocess
+import sys
+import tarfile
+from tempfile import mkdtemp, TemporaryFile, NamedTemporaryFile
+import textwrap
+from time import time as curtime
+from urlparse import urljoin
+import yaml
+from zipfile import ZipFile
+
+TESTDATA_URL = 'http://openslide.cs.cmu.edu/download/openslide-testdata/'
+VALGRIND_SUPPRESSIONS = '!!SRCDIR!!/valgrind.supp'
+CASEROOT = '!!SRCDIR!!/cases'
+SLIDELIST = '!!SRCDIR!!/cases/slides.yaml'
+MOSAICLIST = '!!SRCDIR!!/cases/mosaic.ini'
+WORKROOT = '!!BUILDDIR!!/_slidedata'
+PRISTINE = '!!BUILDDIR!!/_slidedata/_pristine'
+FEATURES = set('!!FEATURES!!'.split())
+TESTCONF = 'config.yaml'
+
+GREEN = '\033[1;32m'
+BLUE = '\033[1;34m'
+RED = '\033[1;31m'
+RESET = '\033[1;0m'
+
+_commands = []
+_command_funcs = {}
+
+SKIP = object()
+
+
+if '!!CYGWIN_CROSS_TEST!!':
+    import ctypes
+
+    _cygwin = ctypes.CDLL('cygwin1', use_errno=True)
+    _cygwin_conv_path = _cygwin.cygwin_conv_path
+    _cygwin_conv_path.argtypes = [ctypes.c_uint, ctypes.c_void_p,
+            ctypes.c_void_p, ctypes.c_size_t]
+    _cygwin_conv_path.restype = ctypes.c_ssize_t
+
+    def native_path(path):
+        flags = 0x100  # CCP_POSIX_TO_WIN_A | CCP_RELATIVE
+        size = _cygwin_conv_path(flags, path, None, 0)
+        if size == -1:
+            raise OSError(ctypes.get_errno(), "Couldn't convert path")
+        buf = ctypes.create_string_buffer(size)
+        if _cygwin_conv_path(flags, path, buf, size) == -1:
+            raise OSError(ctypes.get_errno(), "Couldn't convert path")
+        return buf.value
+
+    def symlink(src, dst):
+        if not os.path.isabs(src):
+            src = os.path.abspath(os.path.join(os.path.dirname(dst), src))
+        subprocess.check_call(['!!BUILDDIR!!/symlink', native_path(src),
+                native_path(dst)])
+else:
+    native_path = lambda p: p
+    symlink = os.symlink
+
+
+class ConnectionInterrupted(Exception):
+    pass
+
+
+def _command(f):
+    '''Decorator to mark the function as a user command.'''
+    _commands.append(f.func_name)
+    _command_funcs[f.func_name] = f
+    return f
+
+
+def _color(color, str):
+    '''Return str, wrapped in the specified ANSI color escape sequence.'''
+    return color + str + RESET
+
+
+def _list_tests(pattern='*'):
+    '''Return a list of test names matching the specified pattern.'''
+    return [name for name in sorted(os.listdir(CASEROOT))
+            if fnmatch.fnmatch(name, pattern)
+            and os.path.exists(os.path.join(CASEROOT, name, TESTCONF))]
+
+
+def _list_slide_files(slide):
+    '''List relative paths of files within a slide.  slide is e.g.
+    "Mirax/CMU-1.zip".'''
+    def walk(basedir):
+        files = []
+        for name in os.listdir(basedir):
+            path = os.path.join(basedir, name)
+            if os.path.isdir(path):
+                files.extend(os.path.join(name, p) for p in walk(path))
+            else:
+                files.append(name)
+        return files
+    return walk(os.path.join(PRISTINE, slide))
+
+
+def _load_test_config(testname):
+    '''Parse and return the config.yaml for the specified test.'''
+    with open(os.path.join(CASEROOT, testname, TESTCONF)) as fh:
+        return yaml.safe_load(fh)
+
+
+def _features_available(conf):
+    '''Return True if the features required by the test configuration
+    are available in this build.'''
+    for feature in conf.get('requires', []):
+        if feature not in FEATURES:
+            return False
+    return True
+
+
+def _is_bigtiff(path):
+    '''Return True if the specified file is a BigTIFF.'''
+    try:
+        with open(path, 'rb') as fh:
+            # Check endianness
+            sig = fh.read(2)
+            if sig == 'II':
+                fmt = '<'
+            elif sig == 'MM':
+                fmt = '>'
+            else:
+                return False
+            # Check magic number
+            fmt += 'H'
+            magic = struct.unpack(fmt, fh.read(struct.calcsize(fmt)))[0]
+            return magic == 43
+    except IOError:
+        return False
+
+
+def _launch_test(test, slidefile, valgrind=False, extra_checks=True,
+        testdir=None, debug=[], args=[], **kwargs):
+    '''Start the specified test from the testdir directory against the
+    specified slide, running under Valgrind if requested.  If extra_checks
+    is False, turn off debug instrumentation that would invalidate benchmark
+    results.  debug options are passed in OPENSLIDE_DEBUG.  args are
+    appended to the command line.  kwargs are passed to the Popen
+    constructor.  Return the Popen instance.'''
+
+    if testdir is None:
+        testdir = '!!BUILDDIR!!'
+    env = os.environ.copy()
+    env.update(
+        G_MESSAGES_DEBUG='',
+        OPENSLIDE_DEBUG=','.join(debug),
+        GIO_USE_VFS='local',
+    )
+    if extra_checks:
+        env.update(
+            G_DEBUG='gc-friendly',
+            G_SLICE='always-malloc',
+            MALLOC_CHECK_='1',
+        )
+    args = [os.path.join(testdir, test), native_path(slidefile)] + args
+    if valgrind:
+        args = [os.path.join(testdir, '../libtool'), '--mode=execute',
+                'valgrind', '--quiet', '--error-exitcode=3',
+                '--suppressions=' + VALGRIND_SUPPRESSIONS,
+                '--leak-check=full', '--num-callers=30'] + args
+    elif extra_checks:
+        # debug-blocks retains pointers to freed slices, so don't use it
+        # with Valgrind
+        env['G_SLICE'] += ',debug-blocks'
+    return subprocess.Popen(args, env=env, **kwargs)
+
+
+def _try_open_slide(slidefile, valgrind=False, testdir=None, debug=[],
+        vendor=SKIP, properties={}, regions=[]):
+    '''Try opening the specified slide file, under Valgrind if specified,
+    using the test program in the testdir directory.  Return None on
+    success, error message on failure.  vendor is the vendor string that
+    should be returned by openslide_detect_vendor(), None for NULL, or SKIP
+    to omit the test.  properties is a map of slide properties and their
+    expected values.  regions is a list of region tuples (x, y, level, w,
+    h).  debug is a list of OPENSLIDE_DEBUG options.'''
+
+    args = []
+    if vendor is not SKIP:
+        args.extend(['-n', 'none' if vendor is None else vendor])
+    for k, v in properties.iteritems():
+        args.extend(['-p', '='.join([k, (v or '')])])
+    for region in regions:
+        args.extend(['-r', ' '.join(str(d) for d in region)])
+    proc = _launch_test('try_open', slidefile, valgrind=valgrind, args=args,
+            testdir=testdir, debug=debug, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+    out, err = proc.communicate()
+    if out or err or proc.returncode > 0:
+        return (out + err).strip()
+    elif proc.returncode:
+        return 'Exited with status %d' % proc.returncode
+    else:
+        return None
+
+
+def _try_extended(slidefile, valgrind=False, testdir=None):
+    '''Run the extended test program against the specified slide file, under
+    Valgrind if specified, using the test program in the testdir directory.
+    Return None on success, error message on failure.'''
+
+    proc = _launch_test('extended', slidefile, valgrind=valgrind,
+            testdir=testdir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = proc.communicate()
+    if out or err:
+        return (out + err).strip()
+    elif proc.returncode:
+        return 'Exited with status %d' % proc.returncode
+    else:
+        return None
+
+
+def _download(url, name, fh):
+    '''Download the specified URL, write to the specified file handle, and
+    return the SHA-256 of the data.  Raise ConnectionInterrupted on timeout
+    or short read.'''
+
+    print 'Fetching %s...\r' % name,
+    sys.stdout.flush()
+    r = requests.get(url, stream=True, timeout=120)
+    r.raise_for_status()
+
+    cur = 0
+    last_update = 0
+    size = int(r.headers['Content-Length'])
+    hash = sha256()
+
+    try:
+        for chunk in r.iter_content(128 << 10):
+            fh.write(chunk)
+            hash.update(chunk)
+
+            cur += len(chunk)
+            now = curtime()
+            if now - last_update >= 1:
+                print 'Fetching %s (%d/%d MB)...\r' % (name, cur >> 20,
+                        size >> 20),
+                sys.stdout.flush()
+                last_update = now
+        if cur != size:
+            raise ConnectionInterrupted
+    except (ConnectionInterrupted,
+            requests.exceptions.Timeout,
+            socket.timeout):
+        print '%-79s' % ('Failure fetching %s (%d/%d MB)' % (name,
+                cur >> 20, size >> 20))
+        raise ConnectionInterrupted
+    else:
+        print '%-79s' % ('Fetched %s (%d MB)' % (name, size >> 20))
+        return hash.hexdigest()
+
+
+def _fetch_one(slide):
+    '''Download and unpack the base slide if we don't already have it.'''
+
+    destpath = os.path.join(PRISTINE, slide)
+    if os.path.exists(destpath):
+        return
+
+    with open(SLIDELIST) as fh:
+        slides = yaml.safe_load(fh)
+    if slide not in slides:
+        raise ValueError('%s not in %s' % (slide, SLIDELIST))
+
+    filename = os.path.basename(slide)
+    url = urljoin(TESTDATA_URL, slide)
+    is_zip = os.path.splitext(filename)[1] == '.zip'
+
+    os.makedirs(destpath)
+    try:
+        if is_zip:
+            dest = TemporaryFile()
+        else:
+            dest = open(os.path.join(destpath, filename), 'wb')
+
+        with dest:
+            for retries_remaining in range(4, -1, -1):
+                try:
+                    digest = _download(url, slide, dest)
+                except ConnectionInterrupted:
+                    if retries_remaining == 0:
+                        raise
+                    else:
+                        print 'Retrying...'
+                        dest.seek(0)
+                        dest.truncate()
+                else:
+                    break
+
+            if digest != slides[slide]:
+                raise ValueError('Hash mismatch: %s' % slide)
+
+            if is_zip:
+                print 'Unpacking %s...' % slide
+                with closing(ZipFile(dest)) as zf:
+                    zf.extractall(path=destpath)
+    except:
+        rmtree(destpath, ignore_errors=True)
+        raise
+
+
+@_command
+def create(slide, testname):
+    '''Create a new test case with the specified name and base slide (e.g.
+    "Mirax/CMU-1.zip").'''
+
+    srcpath = os.path.join(PRISTINE, slide)
+    testpath = os.path.join(CASEROOT, testname)
+    destpath = os.path.join(testpath, 'slide')
+
+    if os.path.exists(testpath):
+        raise ValueError('A test with that name already exists')
+    _fetch_one(slide)
+
+    print 'Creating test %s for %s' % (testname, slide)
+
+    for relpath in _list_slide_files(slide):
+        curpath = os.path.join(srcpath, relpath)
+        if _try_open_slide(curpath) is None:
+            slidefile = relpath
+            slidepath = curpath
+            break
+    else:
+        raise IOError('Could not locate readable slide file')
+
+    query = _launch_test('query', slidepath, args=['-n'],
+            stdout=subprocess.PIPE)
+    vendor, _ = query.communicate()
+    if query.returncode:
+        raise IOError('Could not query slide vendor')
+    vendor = vendor.strip() or None
+
+    os.mkdir(testpath)
+    copytree(srcpath, destpath)
+    conf = {
+        'success': False,
+        'error': '^$',
+        'base': slide,
+        'slide': slidefile,
+        'vendor': vendor,
+    }
+    if _is_bigtiff(slidepath):
+        conf['requires'] = ['libtiff-4']
+    with open(os.path.join(testpath, TESTCONF), 'w') as fh:
+        yaml.safe_dump(conf, fh, default_flow_style=False)
+
+
+@_command
+def pack(testname):
+    '''Pack a newly-created test case for checkin.'''
+
+    if not os.path.exists(os.path.join(CASEROOT, testname, TESTCONF)):
+        raise ValueError('Test does not exist')
+
+    print 'Packing %s...' % testname
+    conf = _load_test_config(testname)
+    slide = conf['base']
+
+    total_size = 0
+    for relpath in _list_slide_files(slide):
+        origpath = os.path.join(PRISTINE, slide, relpath)
+        newpath = os.path.join(CASEROOT, testname, 'slide', relpath)
+        deltapath = os.path.join(CASEROOT, testname,
+                os.path.basename(relpath) + '.xdelta')
+        whiteoutpath = os.path.join(CASEROOT, testname,
+                os.path.basename(relpath) + '.whiteout')
+
+        for path in deltapath, whiteoutpath:
+            if os.path.exists(path):
+                raise IOError('%s already exists' % path)
+
+        if os.path.exists(newpath):
+            if not filecmp.cmp(origpath, newpath, shallow=False):
+                subprocess.check_call(['xdelta3', 'encode', '-9', '-W',
+                        '16777216', '-s', origpath, newpath, deltapath])
+                total_size += os.stat(deltapath).st_size
+        else:
+            open(whiteoutpath, 'w').close()
+
+    rmtree(os.path.join(CASEROOT, testname, 'slide'))
+
+    total_size_kb = total_size >> 10
+    if total_size_kb:
+        print 'Delta: %d KB' % total_size_kb
+    else:
+        print 'Delta: %d bytes' % total_size
+
+
+def _run_generator(command_str, inpath, outpath):
+    '''Run the specified generator pipeline.'''
+
+    cmds = command_str.split('|')
+    procs = []
+    fin = []
+    fout = []
+    try:
+        fin.append(None)
+        for _ in range(len(cmds) - 1):
+            pipe_r, pipe_w = os.pipe()
+            fout.append(pipe_w)
+            fin.append(pipe_r)
+        fout.append(None)
+
+        for i, cmd in enumerate(cmds):
+            proc = subprocess.Popen([a % {'in': inpath, 'out': outpath}
+                    for a in shlex.split(cmd)],
+                    stdin=fin[i], stdout=fout[i], close_fds=True)
+            procs.append(proc)
+    finally:
+        for fh in fout + fin:
+            if fh is not None:
+                os.close(fh)
+
+    returncode = 0
+    for proc in procs:
+        proc.wait()
+        returncode = returncode or proc.returncode
+    if returncode:
+        raise IOError('Generator returned exit status %d' % returncode)
+
+
+def _unpack_one(testname):
+    '''Unpack the specified test.'''
+
+    conf = _load_test_config(testname)
+    slide = conf['base']
+    generators = conf.get('generate', {})
+    printed = False
+    _fetch_one(slide)
+
+    for relpath in _list_slide_files(slide):
+        origpath = os.path.join(PRISTINE, slide, relpath)
+        newpath = os.path.join(WORKROOT, testname, relpath)
+        deltapath = os.path.join(CASEROOT, testname,
+                os.path.basename(relpath) + '.xdelta')
+        whiteoutpath = os.path.join(CASEROOT, testname,
+                os.path.basename(relpath) + '.whiteout')
+
+        if not os.path.exists(newpath) and not os.path.exists(whiteoutpath):
+            if not printed:
+                print 'Unpacking %s...' % testname
+                printed = True
+
+            newdir = os.path.dirname(newpath)
+            if not os.path.exists(newdir):
+                os.makedirs(newdir)
+
+            generator = generators.get(os.path.basename(relpath))
+            if generator:
+                _run_generator(generator, origpath, newpath)
+            elif os.path.exists(deltapath):
+                subprocess.check_call(['xdelta3', 'decode', '-s',
+                        origpath, deltapath, newpath])
+            else:
+                src = os.path.relpath(origpath, os.path.dirname(newpath))
+                symlink(src, newpath)
+
+
+@_command
+def unpack(pattern='*'):
+    '''Unpack all tests matching the specified pattern.'''
+    for testname in _list_tests(pattern):
+        _unpack_one(testname)
+
+
+def _run_one(testname, valgrind=False, testdir=None):
+    '''Run the specified test, under Valgrind if specified.  Also execute
+    extended tests against cases which 1) are marked primary, 2) are expected
+    to succeed, and 3) do in fact succeed.'''
+
+    conf = _load_test_config(testname)
+    if not _features_available(conf):
+        print _color(BLUE, '%s: skipped' % testname)
+        return True
+    slidefile = os.path.join(WORKROOT, testname, conf['slide'])
+    result = _try_open_slide(slidefile, valgrind, testdir,
+            vendor=conf.get('vendor', None),
+            properties=conf.get('properties', {}),
+            regions=conf.get('regions', []),
+            debug=conf.get('debug', []))
+
+    if result is None and not conf['success']:
+        print _color(RED, '%s: unexpected success' % testname)
+        return False
+    elif result is not None and conf['success']:
+        print _color(RED, '%s: unexpected failure: %s' % (testname, result))
+        return False
+    elif result is not None and not re.search(conf['error'], result):
+        print _color(RED, '%s: incorrect error: %s' % (testname, result))
+        return False
+    elif conf.get('primary', False) and conf['success']:
+        result = _try_extended(slidefile, valgrind, testdir)
+        if result:
+            print _color(RED, '%s: extended test failed: %s' % (testname,
+                    result))
+            return False
+    print _color(GREEN, '%s: OK' % testname)
+    return True
+
+
+def _run_all(pattern='*', valgrind=False, testdir=None):
+    '''Run all tests matching the specified pattern, under Valgrind if
+    specified.  Return the number of failed tests.'''
+    tests = _list_tests(pattern)
+    for testname in tests:
+        _unpack_one(testname)
+    failed = 0
+    for testname in tests:
+        if not _run_one(testname, valgrind, testdir):
+            failed += 1
+    print '\nFailed: %d/%d' % (failed, len(tests))
+    return failed
+
+
+@_command
+def run(pattern='*'):
+    '''Unpack and run all tests matching the specified pattern.'''
+    if _run_all(pattern):
+        sys.exit(1)
+
+
+@contextmanager
+def _rebuild(cflags):
+    '''Context manager: rebuild the source with the specified CFLAGS and
+    yield to the caller to do profiling.'''
+    # To minimize collateral damage, unpack the dist tarball into a temp
+    # directory and build there.
+
+    top_builddir = os.path.dirname('!!BUILDDIR!!')
+    prevdir = os.getcwd()
+
+    # Make tarball
+    os.chdir(top_builddir)
+    subprocess.check_call(['make', 'dist-gzip'])
+    os.chdir(prevdir)
+    tarpath = os.path.join(top_builddir, 'openslide-!!VERSION!!.tar.gz')
+
+    # Unpack and remove the tarball
+    tempdir = mkdtemp(prefix='build-', dir=prevdir)
+    os.chdir(tempdir)
+    tarfile.open(tarpath, 'r:gz').extractall()
+    os.unlink(tarpath)
+    os.chdir('openslide-!!VERSION!!')
+
+    # Build with specified CFLAGS
+    subprocess.check_call(['./configure', 'CFLAGS=' + cflags])
+    subprocess.check_call(['make'])
+
+    # Let the caller run, passing it the directory we came from.
+    # Intentionally don't clean up tempdir on exception.
+    yield prevdir
+
+    # Remove temporary directory
+    os.chdir(prevdir)
+    rmtree(tempdir)
+
+
+@_command
+def coverage(outfile):
+    '''Unpack and run all tests and write coverage report to outfile.'''
+    with _rebuild('-O0 -g -fprofile-arcs -ftest-coverage') as basedir:
+        # Run tests
+        _run_all(testdir='test')
+
+        # Generate coverage reports
+        for dirpath, dirnames, filenames in os.walk('src'):
+            paths = [os.path.join(dirpath, name)
+                    for name in fnmatch.filter(sorted(filenames), '*.gcda')]
+            if paths:
+                subprocess.check_call(['gcov', '-o', dirpath] + paths)
+
+        # Record unexecuted lines
+        proc = subprocess.Popen(['grep', '-FC', '2', '#####'] +
+                fnmatch.filter(sorted(os.listdir('.')), '*.gcov'),
+                stdout=subprocess.PIPE)
+        report, _ = proc.communicate()
+        if proc.returncode:
+            raise IOError('Process returned exit status %d' % proc.returncode)
+        report = '\n'.join(l.replace('.c.gcov', '.c', 1)
+                for l in report.split('\n'))
+        with open(os.path.join(basedir, outfile), 'w') as fh:
+            fh.write(report)
+
+
+@_command
+def valgrind(pattern='*'):
+    '''Unpack and Valgrind all tests matching the specified pattern.'''
+    if _run_all(pattern, valgrind=True):
+        sys.exit(1)
+
+
+@_command
+def mosaic(outfile):
+    '''Produce a mosaic image of slide data from various formats.'''
+    cfg = RawConfigParser()
+    cfg.optionxform = str
+    cfg.read(MOSAICLIST)
+    for section in cfg.sections():
+        _fetch_one(cfg.get(section, 'base'))
+    subprocess.check_call([os.path.join('!!BUILDDIR!!', 'mosaic'),
+            native_path(PRISTINE), native_path(MOSAICLIST),
+            native_path(outfile)])
+
+
+def _successful_primary_tests(pattern='*'):
+    '''Yield testname and slide path for each successful primary test.'''
+    for testname in _list_tests(pattern):
+        conf = _load_test_config(testname)
+        if (not conf.get('primary', False) or not conf['success']
+                or not _features_available(conf)):
+            continue
+        _unpack_one(testname)
+        slidefile = os.path.join(WORKROOT, testname, conf['slide'])
+        yield testname, slidefile
+
+
+@_command
+def time(pattern='*'):
+    '''Time openslide_open() for all successful primary tests matching the
+    specified pattern.'''
+    for testname, slidefile in _successful_primary_tests(pattern):
+        proc = _launch_test('try_open', slidefile, args=['-t'],
+                extra_checks=False, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE)
+        out, err = proc.communicate()
+        if proc.returncode or err:
+            out = 'failed'
+        print '%-40s %10s' % (testname, out.strip())
+
+
+@_command
+def profile(pattern='*', level=0):
+    '''Profile openslide_read_region() on the specified level for all
+    successful primary tests matching the specified pattern.'''
+    env = os.environ.copy()
+    env.update(
+        G_MESSAGES_DEBUG='',
+        OPENSLIDE_DEBUG='performance',
+    )
+    line = '#' * 79
+    for testname, slidefile in _successful_primary_tests(pattern):
+        print '%s\n# %s\n%s\n' % (line, testname, line)
+        with NamedTemporaryFile(prefix='openslide-callgrind-') as fh:
+            args = ['!!BUILDDIR!!/../libtool', '--mode=execute',
+                    'valgrind', '--quiet', '--error-exitcode=3',
+                    '--tool=callgrind', '--callgrind-out-file=' + fh.name,
+                    '--instr-atstart=no',
+                    '!!BUILDDIR!!/profile', slidefile, str(level)]
+            if subprocess.call(args, env=env) == 0:
+                subprocess.check_call(['callgrind_annotate',
+                        '--threshold=80', fh.name])
+
+
+@_command
+def clean(pattern='*'):
+    '''Delete temporary slide data for tests matching the specified pattern.'''
+    for testname in _list_tests(pattern):
+        path = os.path.join(WORKROOT, testname)
+        if os.path.exists(path):
+            rmtree(path)
+
+
+def _get_arglist(f):
+    '''Return two lists of argument names for the specified function: the
+    mandatory arguments and the optional ones.'''
+    args, _va, _kw, defs = inspect.getargspec(f)
+    if defs:
+        optcount = len(defs)
+        return args[:-optcount], args[-optcount:]
+    else:
+        return args, []
+
+
+def _usage():
+    '''Print usage message and exit.'''
+    wrapper = textwrap.TextWrapper(width=76, initial_indent=' ' * 8,
+            subsequent_indent=' ' * 8)
+    print 'Usage:'
+    for name in _commands:
+        f = _command_funcs[name]
+        args, optargs = _get_arglist(f)
+        argspecs = ['<%s>' % a for a in args] + ['[%s]' % a for a in optargs]
+        print '    %s %s' % (name, ' '.join(argspecs))
+        print wrapper.fill(f.__doc__ or 'Undocumented.')
+        print
+    sys.exit(2)
+
+
+def _main():
+    try:
+        cmd = sys.argv[1]
+    except IndexError:
+        _usage()
+    try:
+        f = _command_funcs[cmd]
+    except KeyError:
+        _usage()
+    args, optargs = _get_arglist(f)
+    argc = len(sys.argv) - 2
+    if argc < len(args) or argc > len(args) + len(optargs):
+        _usage()
+    f(*sys.argv[2:])
+
+
+if __name__ == '__main__':
+    _main()
