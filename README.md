@@ -122,9 +122,41 @@ To run the script we follow the next steps:
 1. We open MATLAB and locate the directory in the same as the phenoTIL main folder.
 2. We run the script on MATLAB as shown below. It will run the script using the nuclei segmentation #1 mask:
     Script
-```matlab
+   ```matlab
    run_phenoTIL_matlabr2020b_featureExtraction
    ```
+   More specifically, the nuclei segmentation line is:
+   ```matlab
+   % input are (RGB image, color normalization (1=yes), lower value for the scales, upper value for the scales (2,4,8,10,12)) 
+   nuclei = getWatershedMask(img,1,4,12);
+   ```
+   For the lymphocyte identification the line is:
+   ```matlab
+   % To get the lymphocytes from the nuclei mask and image we run it as
+   % load the trained lymphocyte model
+   lympModel = load('lymp_svm_matlab_wsi.mat');
+   lympModel = lympModel.model;
+   % Extract local (shape, size, intensity) features
+   [nucleiCentroids,feat_simplenuclei] = get_localcellfeatures(img,nuclei);
+   % Identify which is lymphocyte and which is not
+   isLymphocyte = (predict(lympModel,feat_simplenuclei(:,1:7)))==1;
+   % Identify the centroids of lymphocytes and non-lymphocytes
+   lympCentroids=nucleiCentroids(isLymphocyte==1,:);
+   nonLympCentroids=nucleiCentroids(isLymphocyte~=1,:);
+   % Represent them as a binary mask
+   rndLymp = round(lympCentroids);
+   rndnonLymp = round(nonLympCentroids);
+   bwLymp = bwselect(nuclei,rndLymp(:,1),rndLymp(:,2));
+   bwnonLymp = bwselect(nuclei,rndnonLymp(:,1),rndnonLymp(:,2));
+   % save the lymphocyte mask
+   imwrite(bwLymp,'./output/matlab/test_lymp.png')
+   imwrite(bwnonLymp,'./output/matlab/test_nonlymp.png')
+   ```
+   The line of code for the extraction of phenoTIL features is:
+      ```matlab
+   getAllFeatures_V2(input_path,output_path);
+   ```
+   It requires only the input path of the H&E images and the output path where the features are being saved.
 3. (Optional) If the nuclei segmentation #1 mask is already saved. We can combine the nuclei segmentation #1 with nuclei segmentation #2. It offers more options to identify cells on a image sample.
    We run a set of line of codes (A script can be found at `/code/libs/fusion_masks.m`:
    ```matlab
