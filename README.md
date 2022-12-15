@@ -97,7 +97,7 @@ The pre-trained model can be found in this link [model folder](https://drive.goo
    pip install opencv-python
    pip install Pillow
    ```
-### Running nuclei segmentation #1 (Python)
+### Running nuclei segmentation #1 - (Python, Deep Learning)
 
 1. We run the script, indicating the input as the folder containing the image (png format) and output the folder to save the mask. `python run_phenoTIL_python38_nucleiSegmentationDL.py input_path output_path`
    Activate the environment
@@ -110,12 +110,12 @@ The pre-trained model can be found in this link [model folder](https://drive.goo
    ```
 4. The results can be seen on the folder directory `phenoTIL_V1/output/python/` including the nuclei segmentation #1 `test_mask.png`
 
-### Prerequisites for MATLAB
+### Prerequisites for running nuclei segmentation #2 and feature extraction - (MATLAB)
 
 MATLAB dependencies are already provided in the `code` folder. Other dependencies are related to the toolbox offered with MATLAB.
 The script was run using MATLAB2022a (Academic Use).
 
-### Running nuclei segmentation #2 and feature extraction (MATLAB)
+### Running nuclei segmentation #2 and feature extraction - (MATLAB)
 
 To run the script we follow the next steps:
 
@@ -170,7 +170,7 @@ To run the script we follow the next steps:
    ```
 4. The results can be seen on the folder directory `phenoTIL_V1/output/matlab/` including testing images. The `test.mat` file saved is the file with the morphometrical features for each of the identified lymphocyte cells. It will be used for clusterization on the Python script.
 
-### Prerequisites for Python (Machine Learning)
+### Prerequisites for running unsupervized clustering - (Python, Machine Learning)
 
 1. As the codes were written in Python 2.7 at the time, to reproduce the feature extraction, we create a conda `environment`:
    ```sh
@@ -194,7 +194,7 @@ To run the script we follow the next steps:
    pip install hdf5storage
    ```
 
-### Running unsupervized clustering (Python)
+### Running unsupervized clustering - (Python, Machine Learning)
 
 1. To run the Python script we simply run the code once the conda environment is activated:
 
@@ -204,7 +204,7 @@ To run the script we follow the next steps:
 
 2. The cluster of the cells file is saved as `phenoTIL_V1/output/python/test_cls.mat`
 
-### Prerequisites for R
+### Prerequisites for running visualizations scripts - (R)
 
 For the depndencies make sure that the following libraries are installed with R.
 1. For hrbrthemes, please follow installs from:  https://github.com/hrbrmstr/hrbrthemes
@@ -264,7 +264,7 @@ GISTools`
    install.packages("GISTools")
    ```
 
-### Running visualizations (R)
+### Running visualizations - (R)
 
 For running the visualization scripts on R, run the script:
 
